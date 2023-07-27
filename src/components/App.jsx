@@ -16,9 +16,9 @@ class App extends Component {
 
   formSubmitHandler = ({name, number, id}) => {     
     const contact = {
-      name,
+       name,
        number,
-        id,
+       id,
     }         
   
       this.setState(prevState =>
@@ -38,7 +38,6 @@ class App extends Component {
   };
 
 componentDidMount() {
-  console.log('start')
   const contacts = localStorage.getItem('contacts');
   const parsedContacts = JSON.parse(contacts);
 
