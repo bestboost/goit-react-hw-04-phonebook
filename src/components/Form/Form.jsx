@@ -33,7 +33,7 @@ const Forms = ({contacts, onSubmit}) => {
    if (repit === true){
     alert(name + ' is already in contacts');
       e.preventDefault();
-      //  reset ()
+       reset ()
       }
         else {return};
     }
@@ -41,14 +41,15 @@ const Forms = ({contacts, onSubmit}) => {
 const handelSubmit = e => {
        e.preventDefault();
     
-       onSubmit(Object.assign({id:nanoid()}))
+       onSubmit(Object.assign({id:nanoid(), name, number}))
     
-       this.reset ();
+       reset ();
      }; 
-//  const reset = () => {
-//   setName('');
-//   setNumber('');
-//  };
+
+ const reset = () => {
+  setName('');
+  setNumber('');
+ };
 
    const nameId = nanoid();
    const numberId = nanoid();
@@ -59,7 +60,7 @@ const handelSubmit = e => {
                <InputName id={nameId}
                    type="text"
                    name="name"
-                   pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                  //  pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                    required
                    value={name}
@@ -69,7 +70,7 @@ const handelSubmit = e => {
                <InputPhone id={numberId}
                    type="tel"
                    name="number"
-                   pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                  //  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                    required
                    value={number}

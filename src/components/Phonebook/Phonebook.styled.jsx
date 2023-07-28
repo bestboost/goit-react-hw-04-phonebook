@@ -25,7 +25,7 @@ export const Point = styled.span`
     
 export const ContactName = styled.p`
 margin: ${p => p.theme.space[0]}px;
-font-size: ${p => p.theme.fontSizes.m}px;
+font-size: 20px;
 color: ${p => p.theme.colors.text};
 `;
 
