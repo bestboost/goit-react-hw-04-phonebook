@@ -5,21 +5,21 @@ import  {ContactBox, ContactList, ContactItem, ContactName, DeleteButton, Point}
 
 const phonebook = ({contacts, onDeleteContact}) => {
 
-         return (
-            <Box>
-             <ContactBox>
-                <ContactList > 
-                    {contacts.map(contact => (          
-                        <ContactItem key={contact.id} >
-                          <Point></Point>
-                            <ContactName>{contact.name}: {contact.number}</ContactName>
-                          <DeleteButton onClick={() => onDeleteContact(contact.id)}>Delete</DeleteButton> 
-                        </ContactItem>
-                      ))}
-                </ContactList>
-             </ContactBox> 
-            </Box>      
-    )};
+  return (
+    <Box>
+      <ContactBox>
+        <ContactList > 
+            {contacts.map(contact => (          
+                <ContactItem key={contact.id} >
+                  <Point></Point>
+                    <ContactName>{contact.name}: {contact.number}</ContactName>
+                  <DeleteButton onClick={() => onDeleteContact(contact.id)}>Delete</DeleteButton> 
+                </ContactItem>
+              ))}
+        </ContactList>
+      </ContactBox> 
+    </Box>      
+  )};
 
     phonebook.propTypes = {
       contacts: PropTypes.arrayOf(

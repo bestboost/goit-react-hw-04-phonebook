@@ -4,16 +4,17 @@ import { Tiltle, Contacts} from './App.styled';
 import Phonebook from 'components/Phonebook/Phonebook'
 import Forms from 'components/Form/Form';
 import Filter from './Filter/Filter';
+import useLocalStorage from './hooks/useLocalStorage';
 // import basicContacts from '../../src/basicContacts';
 
 
 const App = () => {
-   const [contacts, setContacts] = useState([]);
+   const [contacts, setContacts] = useLocalStorage ([])
    const [filters, setFilters] = useState('');
-//  state = {
-//   contacts: [],
-//   filter: '',
-//   };   
+
+   useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
  
  const  formSubmitHandler = ({name, number, id}) => {     
     const contact = {
@@ -29,39 +30,9 @@ const App = () => {
   };
  
  const deleteContact = id => {
-     setContacts(prevContacts => prevContacts !== id)
-  };
+      setContacts(contacts.filter(contact => contact.id !== id)
+      )};
 
-  useEffect(() => { 
-    const contacts = localStorage.getItem('contacts');
-      console.log("useEffect  contacts:", contacts)
-     setContacts( JSON.parse(contacts));
-    
-  }, []);
-
-  useEffect(() => {
-      localStorage.setItem('contacts', JSON.stringify(contacts))
-   
-    }, [contacts]);
-
-// componentDidMount() {
-  // const contacts = localStorage.getItem('contacts');
-  // const parsedContacts = JSON.parse(contacts);
-
-  // if (parsedContacts) {
-  //   this.setState({contacts: parsedContacts});
-  // }
-// }
-
-//   componentDidUpdate(prevProps, prevState) {
-    // console.log('update')
-    // if (this.state.contacts !== prevState.contacts) {
-    //   localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-    // }
-//   }
-
-  // render () {
-    // const  {filter, contacts} = this.state;
     const normolizedFilter = filters.toLowerCase();
     const visibleContacts = contacts.filter(contact => 
       contact.name.toLowerCase().includes(normolizedFilter),);

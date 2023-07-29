@@ -7,24 +7,21 @@ export const ContactBox = styled.div`
 
 export const ContactList = styled.ul`
 margin: ${p => p.theme.space[0]}px;
-font-size: ${p => p.theme.fontSizes.s}px;
+font-size: ${p => p.theme.fontSizes.l}px;
 color: ${p => p.theme.colors.text};
 `;
 
 export const ContactItem = styled.li`
     display: flex;
-    align-items: center;
-    margin-bottom: ${p => p.theme.space[3]}px;
+    align-items: center; 
 `;
 export const Point = styled.span`
     padding: 2px 2px;  
     margin-right: ${p => p.theme.space[3]}px;
     background-color: ${p => p.theme.colors.text}};
-    border-radius: ${p => p.theme.radii.round}; 
 `;
     
 export const ContactName = styled.p`
-margin: ${p => p.theme.space[0]}px;
 font-size: 20px;
 color: ${p => p.theme.colors.text};
 `;
