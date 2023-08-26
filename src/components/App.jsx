@@ -1,43 +1,50 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '../components/Box';
-import { Tiltle, Contacts} from './App.styled';
-import Phonebook from 'components/Phonebook/Phonebook'
+import { Tiltle, Contacts } from './App.styled';
+import Phonebook from 'components/Phonebook/Phonebook';
 import Forms from 'components/Form/Form';
 import Filter from './Filter/Filter';
 import useLocalStorage from './hooks/useLocalStorage';
 // import basicContacts from '../../src/basicContacts';
 
-
 const App = () => {
-   const [contacts, setContacts] = useLocalStorage ([])
-   const [filters, setFilters] = useState('');
+  const [contacts, setContacts] = useLocalStorage([]);
+  const [filters, setFilters] = useState('');
+  const normolizedFilter = filters.toLowerCase();
+  const visibleContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(normolizedFilter)
+  );
 
-   useEffect(() => {
+  useEffect(() => {
     window.localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
- 
- const  formSubmitHandler = ({name, number, id}) => {     
+
+  const formSubmitHandler = ({ name, number, id }) => {
     const contact = {
-       name,
-       number,
-       id,
-    }          
-    setContacts(prevContacts =>([contact, ...prevContacts]))   
-  };  
-   
- const nameFilter = e => {
+      name,
+      number,
+      id,
+    };
+
+    const nextName = contact.name.toLowerCase();
+    const prevName = contacts.find(
+      contact => contact.name.toLowerCase() === nextName
+    );
+
+    if (prevName) {
+      alert(nextName + ' is already in contacts');
+      return;
+    }
+    setContacts(prevContacts => [contact, ...prevContacts]);
+  };
+
+  const nameFilter = e => {
     setFilters(e.currentTarget.value);
   };
- 
- const deleteContact = id => {
-      setContacts(contacts.filter(contact => contact.id !== id)
-      )};
 
-    const normolizedFilter = filters.toLowerCase();
-    const visibleContacts = contacts.filter(contact => 
-      contact.name.toLowerCase().includes(normolizedFilter),);
-    const sameName = visibleContacts.map(contact => contact.name.toLowerCase())
-      
+  const deleteContact = id => {
+    setContacts(contacts.filter(contact => contact.id !== id));
+  };
 
   return (
     <Box
@@ -51,11 +58,11 @@ const App = () => {
         paddingLeft: 40,
       }}
     >
-           <Tiltle>Phonebook</Tiltle> 
-      <Forms  onSubmit={formSubmitHandler} contacts={sameName}/>   
-           <Contacts>Contacts</Contacts>
-      <Filter value={filters} onChange={nameFilter}/>     
-      <Phonebook contacts={visibleContacts} onDeleteContact={deleteContact}/>
+      <Tiltle>Phonebook</Tiltle>
+      <Forms onSubmit={formSubmitHandler} />
+      <Contacts>Contacts</Contacts>
+      <Filter value={filters} onChange={nameFilter} />
+      <Phonebook contacts={visibleContacts} onDeleteContact={deleteContact} />
     </Box>
   );
 };

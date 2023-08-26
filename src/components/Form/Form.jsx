@@ -1,86 +1,82 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import  {Form, TypeName, InputName, TypePhone, InputPhone, AddButton} from './Form.styled';
-import {nanoid} from 'nanoid'; 
+import React, { useState } from 'react';
+import {
+  Form,
+  TypeName,
+  InputName,
+  TypePhone,
+  InputPhone,
+  AddButton,
+} from './Form.styled';
+import { nanoid } from 'nanoid';
 
+const Forms = ({ onSubmit }) => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-const Forms = ({contacts, onSubmit}) => {
+  const handelChange = e => {
+    const { name, value } = e.currentTarget;
 
-   const [name, setName] = useState('');
-   const [number, setNumber] = useState('');
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
 
- const handelChange = e => {
-   const {name, value} = e.currentTarget
+      case 'number':
+        setNumber(value);
+        break;
 
-  switch(name) {
-    case 'name':
-      setName(value); 
-      break;    
-
-    case 'number':
-       setNumber(value);
-       break; 
-      
-    default:
-       return;
-  }
- };
-
- const alertMessage =  e => {
-   const normolizedName = name.toLowerCase();
-   const repit = contacts.includes(normolizedName)
-     
-   if (repit === true){
-    alert(name + ' is already in contacts');
-      e.preventDefault();
-       reset ()
-      }
-        else {return};
+      default:
+        return;
     }
+  };
 
-const handelSubmit = e => {
-       e.preventDefault();
-    
-       onSubmit(Object.assign({id:nanoid(), name, number}))
-    
-       reset ();
-     }; 
+  const handelSubmit = e => {
+    e.preventDefault();
 
- const reset = () => {
-  setName('');
-  setNumber('');
- };
+    onSubmit(Object.assign({ id: nanoid(), name, number }));
 
-   const nameId = nanoid();
-   const numberId = nanoid();
+    reset();
+  };
 
-    return (
-          <Form onSubmit={handelSubmit}>
-               <TypeName htmlFor={nameId}>Name</TypeName>
-               <InputName id={nameId}
-                   type="text"
-                   name="name"
-                  //  pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
-                   title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                   required
-                   value={name}
-                   onChange={handelChange}
-                   />
-               <TypePhone htmlFor={numberId}>Number</TypePhone>    
-               <InputPhone id={numberId}
-                   type="tel"
-                   name="number"
-                  //  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                   required
-                   value={number}
-                   onChange={handelChange}
-                   />
-                <AddButton type="submit" onClick={alertMessage}>Add contact</AddButton>  
-            </Form> 
-    )}
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
-Forms.propTypes = {     
+  const nameId = nanoid();
+  const numberId = nanoid();
+
+  return (
+    <Form onSubmit={handelSubmit}>
+      <TypeName htmlFor={nameId}>Name</TypeName>
+      <InputName
+        id={nameId}
+        type="text"
+        name="name"
+        //  pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        required
+        value={name}
+        onChange={handelChange}
+      />
+      <TypePhone htmlFor={numberId}>Number</TypePhone>
+      <InputPhone
+        id={numberId}
+        type="tel"
+        name="number"
+        //  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+        required
+        value={number}
+        onChange={handelChange}
+      />
+      <AddButton type="submit">Add contact</AddButton>
+    </Form>
+  );
+};
+
+Forms.propTypes = {
   contacts: PropTypes.arrayOf(PropTypes.string.isRequired),
   onSubmit: PropTypes.func.isRequired,
 };
