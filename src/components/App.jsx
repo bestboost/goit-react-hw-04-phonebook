@@ -4,7 +4,7 @@ import { Tiltle, Contacts } from './App.styled';
 import Phonebook from 'components/Phonebook/Phonebook';
 import Forms from 'components/Form/Form';
 import Filter from './Filter/Filter';
-import useLocalStorage from './hooks/useLocalStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 // import basicContacts from '../../src/basicContacts';
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+    window.localStorage.setItem('key', JSON.stringify(contacts));
   }, [contacts]);
 
   const formSubmitHandler = ({ name, number, id }) => {
@@ -45,6 +45,13 @@ const App = () => {
   const deleteContact = id => {
     setContacts(contacts.filter(contact => contact.id !== id));
   };
+
+  // const deleteContact = id => {
+  //   setContacts(prevContacts => [
+  //     ...prevContacts,
+  //     contacts.filter(contact => contact.id !== id),
+  //   ]);
+  // };
 
   return (
     <Box
