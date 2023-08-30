@@ -43,15 +43,10 @@ const App = () => {
   };
 
   const deleteContact = id => {
-    setContacts(contacts.filter(contact => contact.id !== id));
+    setContacts(prevContacts =>
+      prevContacts.filter(contact => contact.id !== id)
+    );
   };
-
-  // const deleteContact = id => {
-  //   setContacts(prevContacts => [
-  //     ...prevContacts,
-  //     contacts.filter(contact => contact.id !== id),
-  //   ]);
-  // };
 
   return (
     <Box
